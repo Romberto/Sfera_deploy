@@ -1,0 +1,75 @@
+{% extends 'main/base.html'%}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/gallery.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/excursions.css'%}">
+{% endblock %}
+{% block title%}Галерея{% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="point">
+                <nav class="menu">
+                    <a href="#" class="menu__link">
+                        <img class="logo__img" src="{% static 'main/img/logo.png'%}">
+                    </a>
+                    <ul class="menu__list">
+                        <li class="menu__item"><a href="{% url 'main'%}" class="menu__link">Главная</a></li>
+                        <li class="menu__item"><a href="#" class="menu__link">Контакты</a></li>
+                        <li class="menu__item"><a href="#" class="menu__link">О нас</a></li>
+                        <li class="menu__item"><a href="{% url 'excursions'%}" class="menu__link">Экскурсии</a></li>
+                        <li class="menu__item"><a href="{% url 'gallery'%}" class="menu__link">Что посмотреть?</a></li>
+                    </ul>
+                </nav>
+                <section class="point__content">
+                    <h1 class="point__title">{{point.name}}</h1>
+                    <div class="point__descroption">
+                        <img class="point__description_img" src="{% get_media_prefix %}{{point.photo}}">
+                        <p class="point__description_text">{{point.description}}</p>
+                    </div>
+                    {% if count > 1 %}
+                    <h1 class="point__title">Маршруты экскурсий куда входит {{point.name}}</h1>
+                    {% else %}
+                    <h1 class="point__title">Маршрут экскурсий куда входит {{point.name}}</h1>
+                    {% endif %}
+                    <ul class="query__excursion">
+                    {% for excursion in excursions %}
+                    {% if excursion.custom %}
+                    <li class="query__excursion_item">
+                        <div class="query__excursion_link" href="{% url 'excursion_item' excursion.id  %}">
+                            <img src="{% get_media_prefix %}{{excursion.photo}}" class="query__excursion_img">
+                            <p class="query__excursion_text"><b>{{excursion.name}}</b></p>
+                            <div class="custom__price_block">
+                                <p class="custom__text">укажите сумму</p>
+                                <p class="custom_text">минимум 3000</p>
+                                <input class="custom__price_input js_custom_input">
+
+                            </div>
+                            <a class="query__excursion_price js_custom__price_link " href="{% url 'excursion_item' excursion.id  %}">Далее</a>
+                            <span></span>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="query__excursion_item">
+                        <a class="query__excursion_link js_excursion_link" href="{% url 'excursion_item' excursion.id  %}">
+                            <img src="{% get_media_prefix %}{{excursion.photo}}" class="query__excursion_img">
+                            <p class="query__excursion_text"><b>{{excursion.name}}</b></p>
+                            <p class="query__excursion_text">{{ excursion.description|slice:"300" }}{% if excursion.description|length > 300 %}...{% endif %}</p>
+                            <p class="query__excursion_price">Монета {{excursion.price}} руб.</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    </ul>
+                </section>
+
+            </div>
+        </div>
+    </main>
+{% endblock%}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'excursions/js/gallery.js' %}"></script>
+<script type="text/javascript" src="{% static 'excursions/js/excursions.js' %}"></script>
+{% endblock %}

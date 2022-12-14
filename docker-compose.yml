@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  web:
+    # Берем Dockerfile из каталога app
+    build: ./app
+    # Запускаем тестовый сервер
+    command: python manage.py runserver 0.0.0.0:8000
+    # куда будут помещены данные из каталога app
+    volumes:
+      - ./app/:/usr/src/app/
+    # Открываем порт 8000 внутри и снаружи
+    ports:
+      - 8000:8000
+    # Файл содержащий переменные для контейнера
+    env_file:
+      - ./.env.dev
+  db:
+    # Образ и версия базы, которую мы будем использовать
+    image: postgres:13-alpine
+    # Внешний том(volume) и место где он будет подключен внутри контейнера
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
+    environment:
+      # Учетные данные, которые можно будет переопределить
+      - POSTGRES_USER=user_sfera
+      - POSTGRES_PASSWORD=qwert#4SWe21#@
+      - POSTGRES_DB=sfera_bd
+  bot:
+    build: ./bot
+    command: python botTelegram.py
+
+volumes:
+  postgres_volume:

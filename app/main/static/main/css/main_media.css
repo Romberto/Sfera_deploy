@@ -1,0 +1,51 @@
+@media(max-width: 1100px){
+    .content__title {
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 30px;
+        color: var(--white);
+    }
+
+    .content__text {
+        margin-bottom: 20px;
+        line-height: 1.3;
+        color: var(--white);
+        font-size: 15px;
+    }
+
+
+
+}
+
+@media(max-width: 600px){
+    .excursion__content {
+        display: block;
+    }
+
+    .excursion__text {
+        width: 100%;
+    }
+    .excursion__block {
+        width: 100%;
+    }
+    .excursion__img{
+        position: relative;
+        transform: none;
+        top: 0;
+        left: 0;
+        margin: 0 auto;
+        display: block;
+    }
+}
+@media(max-width: 475px){
+    .menu{
+        display: none;
+    }
+
+    .menu__mobile_burger{
+        display: block;
+    }
+    .excursion__content{
+        padding-top: 10px;
+    }
+}

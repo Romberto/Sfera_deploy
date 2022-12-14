@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/gallery.css'%}">
+{% endblock %}
+{% block title %}Главная страница{% endblock %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="excursion">
+                <nav class="menu">
+                    <a href="#" class="menu__link">
+                        <img class="logo__img" src="{% static 'main/img/logo.png'%}">
+                    </a>
+                    <ul class="menu__list">
+
+                        <li class="menu__item"><a href="#" class="menu__link">Контакты</a></li>
+                        <li class="menu__item"><a href="#" class="menu__link">О нас</a></li>
+                        <li class="menu__item"><a href="{% url 'excursions'%}" class="menu__link">Экскурсии</a></li>
+                        <li class="menu__item"><a href="{% url 'gallery'%}" class="menu__link">Что посмотреть?</a></li>
+                    </ul>
+                </nav>
+                <div class="excursion__content">
+                    <div class="excursion__text">
+                        <h1 class="content__title">Посети Сириус вместе с нами</h1>
+                         <p class="content__text">При покупки монеты "Сфера" вы получаете экскурию на электрокаре БЕСПЛАНТО</p>
+                        <p class="content__text">Компания "Сфера" предлагает посетить уникальные места в парке Сириус, а так же живописные уголки в Сочи и Абхазии</p>
+                    </div>
+                    <div class="excursion__block">
+                        <img src="{% static 'main/img/park.webp'%}" class="excursion__img">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'main/base.html'%}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/excursions.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/gallery.css'%}">
+{% endblock %}
+{% block title%}{{excursion.name}}{% endblock %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="excursion__item">
+            <nav class="menu">
+                <a href="#" class="menu__link">
+                    <img class="logo__img" src="{% static 'main/img/logo.png'%}">
+                </a>
+                    <ul class="menu__list">
+                        <li class="menu__item"><a href="{% url 'main'%}" class="menu__link">Главная</a></li>
+                        <li class="menu__item"><a href="#" class="menu__link">Контакты</a></li>
+                        <li class="menu__item"><a href="#" class="menu__link">О нас</a></li>
+                        <li class="menu__item"><a href="{% url 'excursions'%}" class="menu__link">Экскурсии</a></li>
+                        <li class="menu__item"><a href="{% url 'gallery'%}" class="menu__link">Что посмотреть?</a></li>
+                    </ul>
+            </nav>
+            <div class="content">
+                <h1 class="point__title" id="excursion_title">{{excursion.name}}</h1>
+                <div class="point__descroption">
+                    <img class="point__description_img" src="{% get_media_prefix %}{{excursion.excursion_map}}">
+                    <p class="point__description_text">{{excursion.description}}</p>
+                </div>
+                <div class="content__pay coin">
+                    <h1 class="point__title">Перейти к покупке монеты</h1>
+                    <p class="point__description_text text_margin_bottom">Краткое описание условия получения бесплатной экскурсии</p>
+                    <p class="coin__pay_btn" data-value="{{excursion.id}}">Подтвердите номер телефона</p>
+                </div>
+            </div>
+            <div class="hidden"></div>
+            <section class="popups">
+
+                <div class="phone">
+                    <h2 class="phone__title">Уважаемый Друг, подтвердите свой номер телефона, вам придёт СМС с
+                        кодом</h2>
+
+                    <div class="phone__form">
+                        <label for="phone">укажите свой номер телефона</label>
+                        <input id="phone" type="text" class="phone__input" placeholder="79998887766">
+                        <div class="phone_btn" name="phone_form">подтвердить</div>
+                    </div>
+                </div>
+
+                <div class="code">
+                    <div class="code__wrapper">
+                        <p class="code__description">В течение 30 секунд, Вам придёт СМС с 4-х значным кодом, введите его в
+                            поле под этим текстом.
+                            Тем самым Вы подтвердите свой номер телефона.</p>
+                        <input id="code" type="text" maxlength="4" class="phone__input limitInput">
+                        <p class="text__error"></p>
+                    </div>
+                </div>
+
+                <div class="success__phone popup">
+                    <div class="popup__wraper"></div>
+                    <div class="popup__inner">
+                        <p>номер</p>
+                        <p id="popup__phone"><b></b></p>
+                        <p class="popup__success">подтверждён</p>
+                        <div class="popup__pay_btn js_pay_btn">перейти к оплате</div>
+                        <p class="popup__pay_nov js_no_pay_btn">нет, назад </p>
+                    </div>
+
+                    <div class="pay__widget">
+                        <p> здесь будет виджет системы оплаты </p>
+                        <div class="popup__pay_btn js_success_pay">успешная оплата</div>
+                    </div>
+
+                </div>
+
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'excursions/js/coin_pay.js' %}"></script>
+{% endblock %}

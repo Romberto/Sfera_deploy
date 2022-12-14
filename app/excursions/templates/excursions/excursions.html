@@ -1,0 +1,109 @@
+{% extends 'main/base.html'%}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/excursions.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/gallery.css'%}">
+{% endblock %}
+{% block title%}Экскурсии{% endblock %}
+{% block content %}
+
+<main>
+    <div class="container">
+        <div class="excursion">
+            <nav class="menu">
+                <a href="#" class="menu__link">
+                    <img class="logo__img" src="{% static 'main/img/logo.png'%}">
+                </a>
+                <ul class="menu__list">
+                    <li class="menu__item"><a href="{% url 'main'%}" class="menu__link">Главная</a></li>
+                    <li class="menu__item"><a href="#" class="menu__link">Контакты</a></li>
+                    <li class="menu__item"><a href="#" class="menu__link">О нас</a></li>
+                    <li class="menu__item"><a href="{% url 'gallery'%}" class="menu__link">Что посмотреть?</a></li>
+                </ul>
+            </nav>
+            <section class="point__content">
+                <h2 class="excursion__title">Выберите экскурсию</h2>
+                <ul class="query__excursion">
+                    {% for excursion in excursions %}
+                    {% if excursion.custom %}
+                    <li class="query__excursion_item">
+                        <div class="query__excursion_link" href="{% url 'excursion_item' excursion.id  %}">
+                            <img src="{% get_media_prefix %}{{excursion.photo}}" class="query__excursion_img">
+                            <p class="query__excursion_text"><b>{{excursion.name}}</b></p>
+                            <div class="custom__price_block">
+                                <p class="custom__text">укажите сумму</p>
+                                <p class="custom_text">минимум 3000</p>
+                                <input class="custom__price_input js_custom_input">
+
+                            </div>
+                            <a class="query__excursion_price js_custom__price_link " href="{% url 'excursion_item' excursion.id  %}">Далее</a>
+                            <span></span>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="query__excursion_item">
+                        <a class="query__excursion_link js_excursion_link" href="{% url 'excursion_item' excursion.id  %}">
+                            <img src="{% get_media_prefix %}{{excursion.photo}}" class="query__excursion_img">
+                            <p class="query__excursion_text"><b>{{excursion.name}}</b></p>
+                            <p class="query__excursion_text">{{ excursion.description|slice:"300" }}{% if excursion.description|length > 300 %}...{% endif %}</p>
+                            <p class="query__excursion_price">Монета {{excursion.price}} руб.</p>
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+
+                </ul>
+            </section>
+        </div>
+    </div>
+</main>
+
+
+
+
+
+<!--<main>-->
+<!--    <div class="container">-->
+<!--        <div class="excursion">-->
+<!--            <h2 class="excursion__title">Выберите экскурсию</h2>-->
+<!--            <p class="excursion__description">Купив монету вы получаете бесплатную обзорную экскурсию</p>-->
+
+<!--            <div class="hidden"></div>-->
+<!--            <section class="popups">-->
+<!--                <div class="phone">-->
+<!--                    <h2 class="phone__title">Уважаемый Друг, подтвердите свой номер телефона, вам придёт СМС с-->
+<!--                        кодом</h2>-->
+
+<!--                    <div class="phone__form">-->
+<!--                        <label for="phone">укажите свой номер телефона</label>-->
+<!--                        <input id="phone" type="text" class="phone__input">-->
+<!--                        <div class="phone_btn" name="phone_form">подтвердить</div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="code">-->
+<!--                    <div class="code__wrapper">-->
+<!--                        <p class="code__description">В течение 30 секунд, Вам придёт СМС с 4-х значным кодом, введите его в-->
+<!--                            поле под этим текстом.-->
+<!--                            Тем самым Вы подтвердите свой номер телефона, затем ожидайте второе СМС с <b>кодом экскурсии</b>,-->
+<!--                            после покупки монеты покажите-->
+<!--                            <b>код экскурии</b> нашему экскурсоводу и вы получите право на бесплатную экскурсию.</p>-->
+<!--                        <input id="code" type="text" maxlength="4" class="phone__input limitInput">-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </section>-->
+
+
+
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</main>-->
+{% endblock%}
+
+{%block scripts %}
+<script type="text/javascript" src="{% static 'excursions/js/excursions.js' %}"></script>
+{% endblock %}

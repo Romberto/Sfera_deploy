@@ -1,0 +1,48 @@
+{% extends 'main/base.html'%}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+<link rel="stylesheet" href="{% static 'excursions/css/gallery.css'%}">
+{% endblock %}
+{% block title%}Галерея{% endblock %}
+{% block content %}
+<main>
+    <div class="container">
+        <div class="gallery">
+            <nav class="menu">
+                <a href="#" class="menu__link">
+                    <img class="logo__img" src="{% static 'main/img/logo.png'%}">
+                </a>
+                <ul class="menu__list">
+                    <li class="menu__item"><a href="{% url 'main'%}" class="menu__link">Главная</a></li>
+                    <li class="menu__item"><a href="#" class="menu__link">Контакты</a></li>
+                    <li class="menu__item"><a href="#" class="menu__link">О нас</a></li>
+                    <li class="menu__item"><a href="{% url 'excursions'%}" class="menu__link">Экскурсии</a></li>
+                </ul>
+            </nav>
+            <section class="gallery__content">
+                <ul class="gallery__block">
+                    {% for item in range%}
+                    {% for point in points%}
+                    <li class="gallery__item">
+                        <a href="{% url 'point' point.id %}" class="gallery__link">
+                            <img class="gallery__link_img" src="{% get_media_prefix %}{{point.photo}}">
+                            <p class="gallery__link_description">{{point.name}}</p>
+                        </a>
+                    </li>
+                    {% endfor %}
+                    {% endfor %}
+
+                </ul>
+            </section>
+        </div>
+    </div>
+    <section>
+
+    </section>
+</main>
+{%endblock%}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'excursions/js/gallery.js' %}"></script>
+{% endblock %}
